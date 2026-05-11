@@ -13,10 +13,10 @@ const getTopNotifications = async (req, res) => {
       return res.status(200).json({ topNotifications: [] });
     }
     const sorted = [...notifications].sort((a, b) => {
-      const pA = PRIORITY_MAP[a.type] ?? 99;
-      const pB = PRIORITY_MAP[b.type] ?? 99;
+      const pA = PRIORITY_MAP[a.Type] ?? 99;
+      const pB = PRIORITY_MAP[b.Type] ?? 99;
       if (pA !== pB) return pA - pB;
-      return new Date(b.createdAt) - new Date(a.createdAt);
+      return new Date(b.Timestamp) - new Date(a.Timestamp);
     });
     const top10 = sorted.slice(0, 10);
     await Log("backend", "info", "controller", `Returning top ${top10.length} notifications`);
